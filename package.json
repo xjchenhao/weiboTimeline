@@ -23,9 +23,7 @@
   "homepage": "https://github.com/xjchenhao/weiboTimeline#readme",
   "dependencies": {
     "cheerio": "^0.20.0",
-    "request": "^2.69.0"
-  },
-  "devDependencies": {
+    "request": "^2.69.0",
     "underscore": "^1.8.3"
   }
 }
