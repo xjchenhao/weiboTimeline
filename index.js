@@ -118,9 +118,9 @@ var weiboTimeline = function (opts, callBack) {
             reqPage.call(this, resolve)
         });
 
-        promise.then(function (next) {
+        promise.then(function (isNext) {
 
-            if (next) {
+            if (isNext) {
                 promiseAjax();
             } else {
                 console.log('end');
@@ -142,6 +142,8 @@ var weiboTimeline = function (opts, callBack) {
             console.log('page: ' + page);
             console.log('ajaxPage: ' + ajaxPage);
             ajaxPage++;
+
+            // 观察可知每个页面请求两次ajax,然后需要翻页
             if (ajaxPage <= 2) {
                 promiseAjax();
             } else {
