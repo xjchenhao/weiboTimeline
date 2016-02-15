@@ -52,12 +52,15 @@ var weiboTimeline = function (opts, callBack) {
 
             if (!error && response.statusCode == 200) {
                 var $ = cheerio.load(html, {decodeEntities: false}),
-                    $WB_text = $('.WB_text');
+                    $WB_detail = $('.WB_detail');
 
-                for (var i = 0, l = $WB_text.length; i < l; i++) {
-                    var obj = $WB_text.eq(i);
+                for (var i = 0, l = $WB_detail.length; i < l; i++) {
 
-                    timeLineArr.add(obj.html());
+                    timeLineArr.add({
+                        time: $WB_detail.find('.WB_from').eq(i).find('a').eq(0).attr('date'),
+                        from: $WB_detail.find('.WB_from').eq(i).find('a').eq(1).html(),
+                        content: $WB_detail.find('.WB_text').eq(i).html()
+                    });
                 }
                 resolve(!!l);
             }
@@ -83,13 +86,15 @@ var weiboTimeline = function (opts, callBack) {
 
                 try {
                     var $ = cheerio.load(JSON.parse(data).data, {decodeEntities: false}),
-                        $WB_text = $('.WB_text');
+                        $WB_detail = $('.WB_detail');
 
+                    for (var i = 0, l = $WB_detail.length; i < l; i++) {
 
-                    for (var i = 0, l = $WB_text.length; i < l; i++) {
-                        var obj = $WB_text.eq(i);
-
-                        timeLineArr.add(obj.html());
+                        timeLineArr.add({
+                            time: $WB_detail.find('.WB_from').eq(i).find('a').eq(0).attr('date'),
+                            from: $WB_detail.find('.WB_from').eq(i).find('a').eq(1).html(),
+                            content: $WB_detail.find('.WB_text').eq(i).html()
+                        });
                     }
 
                     resolve();
