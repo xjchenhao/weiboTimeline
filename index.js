@@ -3,7 +3,7 @@ var request = require('request'),
 
 var cheerio = require('cheerio');
 
-var weiboTimeline = function (opts, result) {
+var weiboTimeline = function (opts, callBack) {
 
     // 设置参数
     opts = _.extend({
@@ -119,7 +119,7 @@ var weiboTimeline = function (opts, result) {
                 promiseAjax();
             } else {
                 console.log('end');
-                result(timeLineArr);
+                callBack(timeLineArr);
             }
 
         }).catch(function (error) {
@@ -155,11 +155,5 @@ var weiboTimeline = function (opts, result) {
 
 };
 
-var promiseResult = function (opts) {
-    return new Promise(function (resolve) {
-        weiboTimeline.call(this, opts, resolve)
-    });
-};
 
-
-module.exports = promiseResult;
+module.exports = weiboTimeline;
