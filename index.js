@@ -7,7 +7,7 @@ var weiboTimeline = function (opts, callBack) {
 
     // 设置参数
     opts = _.extend({
-        userName: '',       // 用户名
+        userId:'',          // 用户id
         cookie: '',         // 带登录信息的cookie
         type: 1             // 类别(0所有,1原创,2图片,3视频,4音乐)
     }, opts);
@@ -39,7 +39,7 @@ var weiboTimeline = function (opts, callBack) {
     // 获取页面渲染的数据
     var reqPage = function (resolve) {
         request({
-            url: 'http://weibo.com/' + opts.userName + '?is_search=0&visible=0&is_ori=1&' + urlParamType + '&is_tag=0&profile_ftype=1&page=' + page + '#feedtop',
+            url: 'http://weibo.com/p/' + opts.userId + '/home?is_search=0&visible=0&' + urlParamType + '&is_tag=0&profile_ftype=1&page=' + page + '#feedtop',
             headers: {
                 'User-agent': 'spider',
                 'Cookie': opts.cookie
@@ -71,7 +71,7 @@ var weiboTimeline = function (opts, callBack) {
     // 获取异步请求的数据(在`获取页面渲染的数据`的函数执行回调中执行)
     var reqAjax = function (resolve) {
         request({
-            url: 'http://weibo.com/p/aj/v6/mblog/mbloglist?ajwvr=6&domain=100505&profile_ftype=1&' + urlParamType + '&pre_page=' + page + '&page=' + page + '&pagebar=' + ajaxPage + '&filtered_min_id=&pl_name=Pl_Official_MyProfileFeed__24&id=1005051775688862&script_uri=/' + opts.userName + '&feed_type=0&domain_op=100505&__rnd=1454569704050',
+            url: 'http://weibo.com/p/aj/v6/mblog/mbloglist?ajwvr=6&domain=100505&profile_ftype=1&' + urlParamType + '&pre_page=' + page + '&page=' + page + '&pagebar=' + ajaxPage + '&filtered_min_id=&pl_name=Pl_Official_MyProfileFeed__24&id=' + opts.userId + '&feed_type=0&domain_op=100505&__rnd=1454569704050',
             headers: {
                 'User-agent': 'spider',
                 'Cookie': opts.cookie
