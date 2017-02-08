@@ -7,7 +7,7 @@ var weiboTimeline = function (opts, callBack) {
 
     // 设置参数
     opts = _.extend({
-        userId:'',          // 用户id
+        userId: '',          // 用户id
         cookie: '',         // 带登录信息的cookie
         type: 1             // 类别(0所有,1原创,2图片,3视频,4音乐)
     }, opts);
@@ -57,9 +57,16 @@ var weiboTimeline = function (opts, callBack) {
                 for (var i = 0, l = $WB_detail.length; i < l; i++) {
 
                     timeLineArr.add({
-                        time: $WB_detail.find('.WB_from').eq(i).find('a').eq(0).attr('date'),
-                        from: $WB_detail.find('.WB_from').eq(i).find('a').eq(1).html(),
-                        content: $WB_detail.find('.WB_text').eq(i).html()
+                        time: $WB_detail.eq(i).find('.WB_from').find('a').eq(0).attr('date'),
+                        from: $WB_detail.eq(i).find('.WB_from').find('a').eq(1).html(),
+                        content: $WB_detail.eq(i).find('.WB_text').html(),
+                        img: (function () {
+                            var arr = [];
+                            $WB_detail.eq(i).find('.WB_media_wrap').find('img').each(function () {
+                                arr.push($(this).attr('src'))
+                            });
+                            return arr;
+                        }())
                     });
                 }
                 resolve(!!l);
@@ -89,11 +96,19 @@ var weiboTimeline = function (opts, callBack) {
                         $WB_detail = $('.WB_detail');
 
                     for (var i = 0, l = $WB_detail.length; i < l; i++) {
+                        var imgArr = $WB_detail.eq(i).find('.WB_media_wrap').find('img').attr('src');
 
                         timeLineArr.add({
-                            time: $WB_detail.find('.WB_from').eq(i).find('a').eq(0).attr('date'),
-                            from: $WB_detail.find('.WB_from').eq(i).find('a').eq(1).html(),
-                            content: $WB_detail.find('.WB_text').eq(i).html()
+                            time: $WB_detail.eq(i).find('.WB_from').find('a').eq(0).attr('date'),
+                            from: $WB_detail.eq(i).find('.WB_from').find('a').eq(1).html(),
+                            content: $WB_detail.eq(i).find('.WB_text').html(),
+                            img: (function () {
+                                var arr = [];
+                                $WB_detail.eq(i).find('.WB_media_wrap').find('img').each(function () {
+                                    arr.push($(this).attr('src'))
+                                });
+                                return arr;
+                            }())
                         });
                     }
 
