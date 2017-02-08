@@ -8,7 +8,7 @@ var weiboTimeline = function (opts, callBack) {
     // 设置参数
     opts = _.extend({
         userId: '',          // 用户id
-        cookie: '',         // 带登录信息的cookie
+        cookie: '',         // 带登录信息的cookie(如果要获取好友圈和个人的信息)
         type: 1             // 类别(0所有,1原创,2图片,3视频,4音乐)
     }, opts);
 
